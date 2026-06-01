@@ -13,8 +13,7 @@ import {
   getDoc,
   query,
   where,
-  getDocs,
-  orderBy
+  getDocs
 } from "firebase/firestore";
 
 const kategoriData = {
@@ -184,14 +183,15 @@ export default function TransaksiPage() {
       const q = query(
         collection(db, "transactions"),
         where("uid", "==", currentUser.uid),
-        where("dateStr", "==", dateStr),
-        orderBy("timestamp", "desc")
+        where("dateStr", "==", dateStr)
       );
       const snap = await getDocs(q);
       const list = [];
       snap.forEach((doc) => {
         list.push({ id: doc.id, ...doc.data() });
       });
+      // Sort in-memory to prevent requiring a composite index in Firestore
+      list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       setTransactions(list);
     } catch (e) {
       console.error(e);
