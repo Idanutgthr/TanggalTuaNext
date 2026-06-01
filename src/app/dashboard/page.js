@@ -72,7 +72,7 @@ function TransactionItem({ transaction, onEdit, onDelete, t }) {
 
   return (
     <div className="relative overflow-hidden rounded-2xl min-h-[66px] w-full border border-pink-50 dark:border-slate-800 shadow-sm shrink-0">
-      {/* Action background layer */}
+      {/* Action background layer: Hapus (left) - Edit (center) - Batal (right) */}
       <div className="absolute inset-0 bg-pink-100 dark:bg-pink-950/20 flex items-center justify-around px-4 z-0">
         <button
           onClick={() => {
@@ -103,7 +103,7 @@ function TransactionItem({ transaction, onEdit, onDelete, t }) {
       {/* Content Layer */}
       <div
         style={{
-          transform: swiped ? "translateX(-65%)" : "translateX(0)"
+          transform: swiped ? "translateX(-100%)" : "translateX(0)"
         }}
         onTouchStart={(e) => handleStart(e.touches[0].clientX)}
         onTouchMove={(e) => handleMove(e.touches[0].clientX)}
@@ -125,9 +125,8 @@ function TransactionItem({ transaction, onEdit, onDelete, t }) {
           </div>
         </div>
         <span
-          className={`text-xs font-bold pointer-events-none ${
-            transaction.type === "income" ? "text-green-600 animate-pulse" : "text-slate-700 dark:text-slate-200"
-          }`}
+          className={`text-xs font-bold pointer-events-none ${transaction.type === "income" ? "text-green-600 animate-pulse" : "text-slate-700 dark:text-slate-200"
+            }`}
         >
           {transaction.type === "income" ? "+" : "-"} Rp.{" "}
           {transaction.amount.toLocaleString("id-ID")}
@@ -361,25 +360,25 @@ export default function TransaksiPage() {
                   rule.periode === "hari" ? t("perhari") : t("perbulan");
                 const warningMsg = language === "id"
                   ? `[PERINGATAN DISIPLIN TANGGALTUA]\n\nAkumulasi pengeluaran Anda untuk Kategori "${selectedKategori}" pada ${textPeriode} akan melebihi batasan maksimal!\n\n• Pengeluaran Lalu: Rp ${totalPengeluaranTercatat.toLocaleString(
-                      "id-ID"
-                    )}\n• Input Baru: Rp ${amount.toLocaleString(
-                      "id-ID"
-                    )}\n• Total Gabungan: Rp ${(
-                      totalPengeluaranTercatat + amount
-                    ).toLocaleString("id-ID")}\n• Batas Maksimal: Rp ${rule.limit.toLocaleString(
-                      "id-ID"
-                    )}\n\nTetap ingin melanjutkan transaksi ini?`
+                    "id-ID"
+                  )}\n• Input Baru: Rp ${amount.toLocaleString(
+                    "id-ID"
+                  )}\n• Total Gabungan: Rp ${(
+                    totalPengeluaranTercatat + amount
+                  ).toLocaleString("id-ID")}\n• Batas Maksimal: Rp ${rule.limit.toLocaleString(
+                    "id-ID"
+                  )}\n\nTetap ingin melanjutkan transaksi ini?`
                   : `[TANGGALTUA DISCIPLINE WARNING]\n\nYour accumulated expense for Category "${selectedKategori}" in this ${textPeriode} will exceed the maximum limit!\n\n• Past Expense: Rp ${totalPengeluaranTercatat.toLocaleString(
-                      "id-ID"
-                    )}\n• New Input: Rp ${amount.toLocaleString(
-                      "id-ID"
-                    )}\n• Total Combined: Rp ${(
-                      totalPengeluaranTercatat + amount
-                    ).toLocaleString("id-ID")}\n• Max Limit: Rp ${rule.limit.toLocaleString(
-                      "id-ID"
-                    )}\n\nDo you still want to proceed with this transaction?`;
+                    "id-ID"
+                  )}\n• New Input: Rp ${amount.toLocaleString(
+                    "id-ID"
+                  )}\n• Total Combined: Rp ${(
+                    totalPengeluaranTercatat + amount
+                  ).toLocaleString("id-ID")}\n• Max Limit: Rp ${rule.limit.toLocaleString(
+                    "id-ID"
+                  )}\n\nDo you still want to proceed with this transaction?`;
                 const lanjut = confirm(warningMsg);
-                if (! lanjut) return;
+                if (!lanjut) return;
               }
             }
           }
@@ -486,11 +485,10 @@ export default function TransaksiPage() {
                 setSelectedType("income");
                 setSelectedKategori("");
               }}
-              className={`flex-1 text-center py-2 text-xs font-semibold rounded-full transition duration-200 cursor-pointer ${
-                selectedType === "income"
+              className={`flex-1 text-center py-2 text-xs font-semibold rounded-full transition duration-200 cursor-pointer ${selectedType === "income"
                   ? "bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow-sm font-bold"
                   : "text-slate-500 dark:text-slate-400"
-              }`}
+                }`}
             >
               {t("pemasukan")}
             </button>
@@ -500,11 +498,10 @@ export default function TransaksiPage() {
                 setSelectedType("expense");
                 setSelectedKategori("");
               }}
-              className={`flex-1 text-center py-2 text-xs font-semibold rounded-full transition duration-200 cursor-pointer ${
-                selectedType === "expense"
+              className={`flex-1 text-center py-2 text-xs font-semibold rounded-full transition duration-200 cursor-pointer ${selectedType === "expense"
                   ? "bg-white dark:bg-slate-800 text-slate-800 dark:text-white shadow-sm font-bold"
                   : "text-slate-500 dark:text-slate-400"
-              }`}
+                }`}
             >
               {t("pengeluaran")}
             </button>

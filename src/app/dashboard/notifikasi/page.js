@@ -21,6 +21,77 @@ const expenseCategories = [
   { name: "Lainnya", icon: "fa-window-maximize", color: "text-yellow-600" }
 ];
 
+function RuleItem({ rule, onDelete, onEdit, isLocked, getKatTranslation, t }) {
+  const [swiped, setSwiped] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleStart = (clientX) => { setStartX(clientX); setIsDragging(true); };
+  const handleMove = (clientX) => { if (!isDragging) return; setCurrentX(clientX); };
+  const handleEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const diff = currentX - startX;
+    if (diff < -50) setSwiped(true);
+    else if (diff > 50) setSwiped(false);
+  };
+
+  return (
+    <div className="relative overflow-hidden rounded-xl min-h-[56px] w-full shrink-0">
+      {/* Action background: Hapus (left) - Edit (center) - Batal (right) */}
+      <div className="absolute inset-0 bg-pink-100 dark:bg-slate-700 flex items-center justify-around px-4 z-0">
+        {!isLocked && (
+          <button
+            type="button"
+            onClick={() => { onDelete(rule.kategori); setSwiped(false); }}
+            className="bg-[#f87171] text-white font-bold px-4 py-1.5 rounded-full text-[10px] shadow-sm cursor-pointer"
+          >
+            {t("batal") === "Cancel" ? "Delete" : "Hapus"}
+          </button>
+        )}
+        {!isLocked && (
+          <button
+            type="button"
+            onClick={() => { onEdit(rule); setSwiped(false); }}
+            className="bg-[#fbbf24] text-slate-800 font-bold px-4 py-1.5 rounded-full text-[10px] shadow-sm cursor-pointer"
+          >
+            Edit
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={() => setSwiped(false)}
+          className="bg-[#4ade80] text-white font-bold px-4 py-1.5 rounded-full text-[10px] shadow-sm cursor-pointer"
+        >
+          {t("batal")}
+        </button>
+      </div>
+      {/* Content layer — solid background */}
+      <div
+        style={{ transform: swiped ? "translateX(-100%)" : "translateX(0)" }}
+        onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+        onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+        onTouchEnd={handleEnd}
+        onMouseDown={(e) => handleStart(e.clientX)}
+        onMouseMove={(e) => handleMove(e.clientX)}
+        onMouseUp={handleEnd}
+        className="bg-white dark:bg-slate-800 border border-pink-100 dark:border-slate-700 rounded-xl p-3 flex justify-between items-center text-xs relative z-10 w-full h-full transition-transform duration-300 cursor-grab select-none"
+      >
+        <div className="pointer-events-none">
+          <p className="font-bold text-slate-800 dark:text-white">{getKatTranslation(rule.kategori)}</p>
+          <p className="text-[9px] text-slate-400">
+            {t("nominalMaksimal")}: {rule.periode === "hari" ? t("perhari") : t("perbulan")}
+          </p>
+        </div>
+        <span className="font-black text-slate-700 dark:text-slate-300 pointer-events-none">
+          Rp {rule.limit.toLocaleString("id-ID")}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function DisiplinPage() {
   const {
     currentUser,
@@ -162,6 +233,14 @@ export default function DisiplinPage() {
     setShowRulePicker(true);
   };
 
+  const handleEditRule = (rule) => {
+    if (isLocked) return;
+    setRuleSelectedKategori(rule.kategori);
+    setRuleSelectedPeriod(rule.periode);
+    setInputNominalMaksimalRule(rule.limit.toString());
+    setShowRulePicker(true);
+  };
+
   const handleCancelRule = () => {
     setShowRulePicker(false);
     setRuleSelectedKategori("");
@@ -294,33 +373,15 @@ export default function DisiplinPage() {
                   </p>
                 ) : (
                   aturanBatasKategori.map((rule) => (
-                    <div
+                    <RuleItem
                       key={rule.kategori}
-                      className="bg-pink-50/60 dark:bg-slate-900/40 border border-pink-100 dark:border-slate-800 rounded-xl p-3 flex justify-between items-center text-xs shrink-0"
-                    >
-                      <div>
-                        <p className="font-bold text-slate-800 dark:text-white">
-                          {getKatTranslation(rule.kategori)}
-                        </p>
-                        <p className="text-[9px] text-slate-400">
-                          {t("nominalMaksimal")}: {rule.periode === "hari" ? t("perhari") : t("perbulan")}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span className="font-black text-slate-700 dark:text-slate-300">
-                          Rp {rule.limit.toLocaleString("id-ID")}
-                        </span>
-                        {!isLocked && (
-                          <button
-                            type="button"
-                            onClick={() => handleDeleteRule(rule.kategori)}
-                            className="block text-[9px] text-red-400 font-bold hover:underline mt-0.5 ml-auto cursor-pointer"
-                          >
-                            {t("batal") === "Cancel" ? "Delete" : "Hapus"}
-                          </button>
-                        )}
-                      </div>
-                    </div>
+                      rule={rule}
+                      onDelete={handleDeleteRule}
+                      onEdit={handleEditRule}
+                      isLocked={isLocked}
+                      getKatTranslation={getKatTranslation}
+                      t={t}
+                    />
                   ))
                 )}
               </div>
