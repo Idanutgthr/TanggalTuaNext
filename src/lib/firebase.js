@@ -4,13 +4,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBeooj-bdmmH46dbwAQKLaHUiS5-brURpM",
-  authDomain: "tanggaltua-45171.firebaseapp.com",
-  projectId: "tanggaltua-45171",
-  storageBucket: "tanggaltua-45171.firebasestorage.app",
-  messagingSenderId: "119166926168",
-  appId: "1:119166926168:web:1364a0b6460482b964792d",
-  measurementId: "G-C1GLDXWDYK"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 // Inisialisasi Firebase (mencegah inisialisasi ganda di development mode)
