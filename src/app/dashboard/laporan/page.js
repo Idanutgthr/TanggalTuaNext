@@ -383,7 +383,7 @@ export default function LaporanPage() {
       </div>
 
       {/* THREE SUMMARY BLOCKS GRID */}
-      <div className="bg-[#fbcfe8] bg-opacity-40 rounded-2xl p-2.5 grid grid-cols-3 gap-1.5 text-center text-[10px] border border-pink-200/30 dark:border-slate-800 shadow-inner shrink-0">
+      <div className="bg-[#fbcfe8] bg-opacity-40 dark:bg-slate-800/40 rounded-2xl p-2.5 grid grid-cols-3 gap-1.5 text-center text-[10px] border border-pink-200/30 dark:border-slate-800 shadow-inner shrink-0">
         <div className="bg-white dark:bg-slate-900 rounded-xl p-2 shadow-sm flex flex-col justify-center min-h-[50px]">
           <p className="text-slate-400 font-bold uppercase text-[9px]">
             {t("pemasukan")}
@@ -424,20 +424,20 @@ export default function LaporanPage() {
       </div>
 
       {/* CHART CANVAS BOARD */}
-      <div className="bg-[#fbcfe8] bg-opacity-20 rounded-[32px] p-4 flex items-center justify-center min-h-[210px] max-h-[210px] relative border border-pink-100/40 dark:border-slate-800/40 shadow-inner shrink-0">
+      <div className="bg-[#fbcfe8] bg-opacity-20 dark:bg-slate-900/20 rounded-[32px] p-4 flex items-center justify-center min-h-[210px] md:min-h-[260px] max-h-[210px] md:max-h-[280px] relative border border-pink-100/40 dark:border-slate-800/40 shadow-inner shrink-0">
         {loading ? (
           <div className="text-xs text-slate-400">{t("memprosesDiagram")}</div>
         ) : (
           <canvas
             ref={canvasRef}
             id="financialChart"
-            className="max-w-full max-h-[190px]"
+            className="max-w-full max-h-[190px] md:max-h-[240px] lg:max-h-[260px]"
           ></canvas>
         )}
       </div>
 
       {/* DATA BREAKDOWN LIST ROWS */}
-      <div className="rep-data-list space-y-2 flex-grow overflow-y-auto custom-scroll max-h-[170px] pr-1 min-h-0">
+      <div className="rep-data-list space-y-2 flex-grow overflow-y-auto custom-scroll max-h-[170px] md:max-h-[240px] lg:max-h-[280px] pr-1 min-h-0">
         {loading ? (
           <div className="text-center text-xs text-slate-400 mt-6">
             {t("memuatRincian")}

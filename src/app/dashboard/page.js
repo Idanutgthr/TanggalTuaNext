@@ -114,7 +114,7 @@ function TransactionItem({ transaction, onEdit, onDelete, t }) {
         className="layer-konten flex justify-between items-center bg-white dark:bg-slate-900 px-4 py-3 relative z-10 w-full h-full transition-transform duration-300 transform cursor-grab select-none"
       >
         <div className="flex items-center gap-3 pointer-events-none">
-          <div className="w-10 h-10 bg-[#fbcfe8] bg-opacity-40 rounded-xl flex items-center justify-center text-slate-700 dark:text-slate-300">
+          <div className="w-10 h-10 bg-[#fbcfe8] bg-opacity-40 dark:bg-pink-950/40 rounded-xl flex items-center justify-center text-slate-700 dark:text-pink-350">
             <i className={`fa-solid ${kf ? kf.icon : "fa-tags"}`}></i>
           </div>
           <div>
@@ -445,7 +445,7 @@ export default function TransaksiPage() {
             </button>
           </div>
 
-          <div className="histori-list space-y-2 flex-grow overflow-y-auto custom-scroll max-h-[340px] pr-1 min-h-0">
+          <div className="histori-list space-y-2 flex-grow overflow-y-auto custom-scroll max-h-[340px] md:max-h-[420px] lg:max-h-[500px] pr-1 min-h-0">
             {loadingHistori ? (
               <p className="text-center text-xs text-slate-400 mt-16 font-medium">
                 {t("memuatHistori")}
@@ -469,7 +469,7 @@ export default function TransaksiPage() {
 
           <button
             onClick={handleOpenInput}
-            className="w-full bg-[#fbcfe8] hover:bg-[#f9a8d4] text-slate-800 font-bold py-3.5 rounded-full text-sm tracking-wide shadow-md transition mt-auto shrink-0 cursor-pointer"
+            className="w-full bg-[#fbcfe8] hover:bg-[#f9a8d4] dark:bg-pink-600 dark:hover:bg-pink-500 dark:text-white text-slate-800 font-bold py-3.5 rounded-full text-sm tracking-wide shadow-md transition mt-auto shrink-0 cursor-pointer"
           >
             {t("transaksi")}
           </button>
@@ -478,7 +478,7 @@ export default function TransaksiPage() {
         /* TRANSACTION INPUT FORM PANEL */
         <div className="space-y-4 flex-grow flex flex-col min-h-0 animate-fadeIn">
           {/* INCOME VS EXPENSE TABS */}
-          <div className="bg-[#fbcfe8] bg-opacity-40 rounded-full p-1 flex border border-pink-200/30 shadow-inner shrink-0">
+          <div className="bg-[#fbcfe8] bg-opacity-40 dark:bg-slate-800 rounded-full p-1 flex border border-pink-200/30 dark:border-slate-750 shadow-inner shrink-0">
             <button
               type="button"
               onClick={() => {
@@ -520,7 +520,7 @@ export default function TransaksiPage() {
           </div>
 
           {/* CATEGORY GRID */}
-          <div className="kategori-grid grid grid-cols-3 gap-y-4 gap-x-2 py-2 text-center overflow-y-auto custom-scroll max-h-[260px] flex-grow min-h-0">
+          <div className="kategori-grid grid grid-cols-3 gap-y-4 gap-x-2 py-2 text-center overflow-y-auto custom-scroll max-h-[260px] md:max-h-[340px] lg:max-h-[420px] flex-grow min-h-0">
             {kategoriData[selectedType].map((kat) => {
               const activeStyle =
                 kat.name === selectedKategori
@@ -557,7 +557,7 @@ export default function TransaksiPage() {
             <button
               onClick={handleSubmit}
               type="button"
-              className="flex-1 bg-[#fbcfe8] hover:bg-[#f9a8d4] text-slate-800 font-bold py-3 rounded-full text-sm shadow-md transition cursor-pointer"
+              className="flex-1 bg-[#fbcfe8] hover:bg-[#f9a8d4] dark:bg-pink-600 dark:hover:bg-pink-500 dark:text-white text-slate-800 font-bold py-3 rounded-full text-sm shadow-md transition cursor-pointer"
             >
               {editingTransactionId ? t("simpan") : "Submit"}
             </button>

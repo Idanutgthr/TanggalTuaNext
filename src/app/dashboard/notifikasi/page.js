@@ -338,7 +338,7 @@ export default function DisiplinPage() {
               )}
 
               {/* DANA SAVINGS PERCENTAGE TARGET VALUE INFO BOX */}
-              <div className="flex justify-between items-center bg-[#fbcfe8] bg-opacity-30 p-3 rounded-xl border border-pink-100 dark:border-slate-800 shrink-0">
+              <div className="flex justify-between items-center bg-[#fbcfe8] bg-opacity-30 dark:bg-slate-800/40 p-3 rounded-xl border border-pink-100 dark:border-slate-800 shrink-0">
                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
                   {getPercentageText()}
                 </span>
@@ -361,10 +361,8 @@ export default function DisiplinPage() {
                 >
                   {t("tambahAturan")}
                 </button>
-              )}
-
-              {/* RULES ROWS SCROLLER */}
-              <div className="rules-list-container space-y-2 flex-grow overflow-y-auto custom-scroll max-h-[220px] pr-1 min-h-0">
+              )}              {/* RULES ROWS SCROLLER */}
+              <div className="rules-list-container space-y-2 flex-grow overflow-y-auto custom-scroll max-h-[220px] md:max-h-[320px] lg:max-h-[400px] pr-1 min-h-0">
                 {aturanBatasKategori.length === 0 ? (
                   <p className="text-center text-[10px] text-slate-400 py-6 font-medium">
                     {t("batal") === "Cancel"
@@ -391,7 +389,7 @@ export default function DisiplinPage() {
                 <button
                   type="button"
                   onClick={handleSaveConfig}
-                  className="w-full bg-[#fbcfe8] hover:bg-[#f9a8d4] text-slate-800 font-bold py-3 rounded-full text-sm shadow-md transition mt-auto shrink-0 cursor-pointer"
+                  className="w-full bg-[#fbcfe8] hover:bg-[#f9a8d4] dark:bg-pink-600 dark:hover:bg-pink-500 dark:text-white text-slate-800 font-bold py-3 rounded-full text-sm shadow-md transition mt-auto shrink-0 cursor-pointer"
                 >
                   {t("simpan")}
                 </button>
@@ -406,8 +404,7 @@ export default function DisiplinPage() {
             {language === "id" ? "Pilih Kategori Pengeluaran" : "Select Expense Category"}
           </div>
 
-          {/* GRID KATEGORI RULES */}
-          <div className="grid grid-cols-3 gap-2 py-1 text-center max-h-[220px] overflow-y-auto custom-scroll flex-grow min-h-0">
+          <div className="grid grid-cols-3 gap-2 py-1 text-center max-h-[220px] md:max-h-[300px] lg:max-h-[360px] overflow-y-auto custom-scroll flex-grow min-h-0">
             {expenseCategories.map((kat) => {
               const isSelected = kat.name === ruleSelectedKategori;
               const bgStyle = isSelected
@@ -436,7 +433,7 @@ export default function DisiplinPage() {
           </div>
 
           {/* TIME DURATION TAB SELECTOR */}
-          <div className="bg-[#fbcfe8] bg-opacity-40 rounded-full p-1 flex border border-pink-200/20 dark:border-slate-800 shrink-0">
+          <div className="bg-[#fbcfe8] bg-opacity-40 dark:bg-slate-800 rounded-full p-1 flex border border-pink-200/20 dark:border-slate-800 shrink-0">
             <button
               type="button"
               onClick={() => setRuleSelectedPeriod("hari")}
@@ -460,7 +457,7 @@ export default function DisiplinPage() {
           </div>
 
           {/* NOMINAL CAPS VALUE INPUT */}
-          <div className="flex justify-between items-center bg-[#fbcfe8] bg-opacity-30 p-3 rounded-xl border border-pink-100 dark:border-slate-800 shrink-0">
+          <div className="flex justify-between items-center bg-[#fbcfe8] bg-opacity-30 dark:bg-slate-800/40 p-3 rounded-xl border border-pink-100 dark:border-slate-800 shrink-0">
             <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
               {t("nominalMaksimal")}
             </span>
@@ -485,7 +482,7 @@ export default function DisiplinPage() {
             <button
               type="button"
               onClick={handleSaveRule}
-              className="flex-1 bg-[#fbcfe8] text-slate-800 font-bold py-2.5 rounded-full text-xs shadow-sm cursor-pointer"
+              className="flex-1 bg-[#fbcfe8] hover:bg-[#f9a8d4] dark:bg-pink-600 dark:hover:bg-pink-500 dark:text-white text-slate-800 font-bold py-2.5 rounded-full text-xs shadow-sm cursor-pointer"
             >
               {t("simpan")}
             </button>

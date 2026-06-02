@@ -30,6 +30,10 @@ body {
   border-radius: 10px;
 }
 
+.dark .custom-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
 /* Remove Number Input Spin Buttons */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

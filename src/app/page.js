@@ -149,7 +149,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="bg-white dark:bg-slate-900 rounded-[40px] shadow-xl p-8 max-w-sm w-full min-h-[750px] flex flex-col items-center justify-between border border-pink-100 dark:border-slate-800 relative">
+      <div className="bg-white dark:bg-slate-900 rounded-[40px] shadow-xl p-8 max-w-sm sm:max-w-md w-full min-h-[750px] flex flex-col items-center justify-between border border-pink-100 dark:border-slate-800 relative">
         
         {/* SLEEK GLOBE LANGUAGE TOGGLER BUTTON */}
         <div className="absolute top-6 right-6 z-10">
